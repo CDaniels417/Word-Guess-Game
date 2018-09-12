@@ -11,6 +11,7 @@ var remainingGuesses = 0;       //guesses remaining
 var gameFinished = false;       //flag for "press any key to try again"
 var wins = 0;
 
+
 // start game
 function startGame() {
     remainingGuesses = tries;
@@ -47,9 +48,14 @@ function updatePage() {
 //check letters entered to word user is guessing
 function checkLetters(letter) {
     var lettersInWord = [];
+    var ans = wordList[randomPick];
+    // console.log(ans)
 
-    for (var i = 0; i < wordList[randomPick].length; i++) {
-        if(wordList[randomPick][i] === letter) {
+    for (var i = 0; i < ans.length; i++) {
+        // console.log(ans.length);
+        lettersInWord = Array.from(ans); // let arr = Array.from(str);
+        console.log(lettersInWord)
+        if(ans[randomPick][i] == letter) {
             lettersInWord.push(i);
         }
     }
@@ -85,18 +91,19 @@ function userInput(letter) {
     if(remainingGuesses > 0) {
         if(userGuesses.indexOf(letter) === -1) {
             userGuesses.push(letter);
-            letterInWord(letter);
+            // letterInWord(letter);
         }
     }
 }
 
 //Event listener
 document.onkeyup = function(event) {
+    userInput(event.key);
     if(gameFinished) {
         startGame();
         gameFinished = false;
     } else { 
-        userInput();
+        // userInput();
         updatePage();
         checkLetters();
         verifyWin();
